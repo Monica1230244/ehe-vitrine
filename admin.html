@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Tableau de bord administrateur EHE pour gerer produits, categories, commandes et messages.">
+    <title>Administration EHE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./admin.css">
+  </head>
+  <body>
+    <main class="admin-app">
+      <aside class="sidebar">
+        <a class="brand" href="./index.html" aria-label="Retour au site EHE">EHE</a>
+        <nav>
+          <a class="active" href="#dashboard">Dashboard</a>
+          <a href="#products">Produits</a>
+          <a href="#categories">Categories</a>
+          <a href="#orders">Commandes</a>
+          <a href="#messages">Messages</a>
+          <a href="#security">Securite</a>
+        </nav>
+        <button class="back-link logout-button" type="button" data-logout>Deconnexion</button>
+        <a class="back-link" href="./index.html">Voir la vitrine</a>
+      </aside>
+
+      <section class="workspace">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Administration</p>
+            <h1>Tableau de bord EHE</h1>
+          </div>
+          <div class="admin-user">
+            <span>Admin</span>
+            <strong data-admin-name>EHE</strong>
+          </div>
+        </header>
+
+        <section class="stats-grid" id="dashboard">
+          <article class="stat-card">
+            <span>Produits</span>
+            <strong data-stat-products>0</strong>
+            <small>Catalogue actif</small>
+          </article>
+          <article class="stat-card">
+            <span>Commandes</span>
+            <strong data-stat-orders>0</strong>
+            <small>Cette semaine</small>
+          </article>
+          <article class="stat-card">
+            <span>Revenus</span>
+            <strong data-stat-revenue>0 FCFA</strong>
+            <small>Commandes confirmees</small>
+          </article>
+          <article class="stat-card">
+            <span>Messages</span>
+            <strong data-stat-messages>0</strong>
+            <small>Depuis le site</small>
+          </article>
+        </section>
+
+        <section class="content-grid">
+          <article class="panel product-panel" id="products">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Catalogue</p>
+                <h2>Ajouter un produit</h2>
+              </div>
+            </div>
+            <form class="product-form" data-product-form>
+              <input type="hidden" name="id">
+              <label>
+                Nom du produit
+                <input name="name" type="text" placeholder="Mocassin Noir Prestige" required>
+              </label>
+              <label>
+                Prix FCFA
+                <input name="price" type="number" min="0" step="500" placeholder="18000" required>
+              </label>
+              <label>
+                Categorie
+                <select name="category">
+                  <option>Hommes</option>
+                  <option>Femmes</option>
+                  <option>Enfants</option>
+                  <option>Sandales</option>
+                  <option>Mocassins</option>
+                  <option>Chaussures de ville</option>
+                  <option>Chaussures de ceremonie</option>
+                </select>
+              </label>
+              <label>
+                Stock
+                <input name="stock" type="number" min="0" step="1" placeholder="12" required>
+              </label>
+              <label>
+                Pointures
+                <input name="sizes" type="text" placeholder="39,40,41,42,43,44">
+              </label>
+              <label>
+                Couleurs
+                <input name="colors" type="text" placeholder="Noir,Marron,Dore">
+              </label>
+              <label>
+                Disponibilite
+                <select name="availability_status">
+                  <option value="in_stock">Disponible</option>
+                  <option value="made_to_order">Sur commande</option>
+                  <option value="out_of_stock">Indisponible</option>
+                </select>
+              </label>
+              <label class="wide">
+                Description
+                <textarea name="description" placeholder="Cuir poli, couture main, silhouette habillee." required></textarea>
+              </label>
+              <label class="wide">
+                Image du produit
+                <input name="image" type="file" accept="image/*" data-product-image>
+              </label>
+              <div class="image-preview wide" data-image-preview>
+                <span>Aucune image selectionnee</span>
+              </div>
+              <div class="form-actions wide">
+                <button class="btn primary" type="submit">Enregistrer</button>
+                <button class="btn muted" type="button" data-reset-form>Annuler</button>
+              </div>
+            </form>
+          </article>
+
+          <article class="panel list-panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Inventaire</p>
+                <h2>Produits recents</h2>
+              </div>
+            </div>
+            <div class="product-list" data-product-list></div>
+          </article>
+        </section>
+
+        <section class="content-grid lower-grid">
+          <article class="panel" id="categories">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Organisation</p>
+                <h2>Categories</h2>
+              </div>
+            </div>
+            <div class="category-list">
+              <span>Hommes</span>
+              <span>Femmes</span>
+              <span>Enfants</span>
+              <span>Sandales</span>
+              <span>Mocassins</span>
+              <span>Ceremonie</span>
+              <span>Cuir</span>
+              <span>Promotions</span>
+            </div>
+          </article>
+
+          <article class="panel" id="orders">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Commandes</p>
+                <h2>Suivi WhatsApp</h2>
+              </div>
+            </div>
+            <div class="order-list" data-order-list></div>
+          </article>
+        </section>
+
+        <section class="content-grid lower-grid">
+          <article class="panel" id="messages">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Clients</p>
+                <h2>Messages</h2>
+              </div>
+              <button class="btn muted" type="button" data-refresh-messages>Actualiser</button>
+            </div>
+            <div class="message-list" data-message-list>
+              <div><strong>Chargement</strong><span>Recuperation des messages...</span></div>
+            </div>
+          </article>
+
+          <article class="panel" id="security">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Securite</p>
+                <h2>Changer mot de passe</h2>
+              </div>
+            </div>
+            <form class="password-form" data-password-form>
+              <label>
+                Mot de passe actuel
+                <input name="current_password" type="password" autocomplete="current-password" required>
+              </label>
+              <label>
+                Nouveau mot de passe
+                <input name="new_password" type="password" autocomplete="new-password" minlength="6" required>
+              </label>
+              <label>
+                Confirmer le nouveau mot de passe
+                <input name="confirm_password" type="password" autocomplete="new-password" minlength="6" required>
+              </label>
+              <button class="btn primary" type="submit">Modifier</button>
+              <p class="form-message" data-password-message></p>
+            </form>
+            <div class="backup-box">
+              <h3>Sauvegarde locale</h3>
+              <p>Creer une copie SQL de la base avant une grosse modification ou un deploiement.</p>
+              <button class="btn muted" type="button" data-backup>Creer une sauvegarde</button>
+              <p class="form-message" data-backup-message></p>
+            </div>
+          </article>
+        </section>
+      </section>
+    </main>
+
+    <script src="./admin.js"></script>
+  </body>
+</html>

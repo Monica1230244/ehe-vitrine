@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="EHE, chaussures artisanales elegantes pour hommes, femmes et enfants. Commande rapide via WhatsApp.">
+    <title>EHE | L'elegance artisanale a vos pieds</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <div class="loader" aria-label="Chargement">
+      <span>EHE</span>
+    </div>
+
+    <header class="site-header" data-header>
+      <a class="brand" href="#accueil" aria-label="Accueil EHE">
+        <span class="brand-mark">EHE</span>
+      </a>
+
+      <button class="nav-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false" data-nav-toggle>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="site-nav" data-nav>
+        <a href="#accueil">Accueil</a>
+        <a href="#boutique">Boutique</a>
+        <a href="#collections">Collections</a>
+        <a href="./histoire.html">Notre histoire</a>
+        <a href="./faq.html">FAQ</a>
+        <a href="./contact.html">Contact</a>
+        <a href="./admin.html">Admin</a>
+      </nav>
+
+      <button class="cart-button" type="button" aria-label="Voir le panier" data-cart-open>
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M6.2 6h15l-1.9 8.6a2 2 0 0 1-2 1.6H8.6a2 2 0 0 1-2-1.7L5.2 3.8H2.8" />
+          <path d="M9 20.5h.1M17 20.5h.1" />
+        </svg>
+        <span data-cart-count>0</span>
+      </button>
+    </header>
+
+    <main id="accueil">
+      <section class="hero">
+        <div class="hero-media" aria-hidden="true">
+          <img src="./assets/hero-ehe.png" alt="">
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content reveal">
+          <p class="eyebrow">Chaussures artisanales</p>
+          <h1>EHE</h1>
+          <p class="hero-line">L'elegance artisanale a vos pieds.</p>
+          <p class="hero-copy">Des modeles confectionnes par des cordonniers passionnes, avec des matieres choisies pour durer et une finition soignee.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#boutique">Decouvrir</a>
+            <a class="btn btn-ghost" href="#contact">Commander</a>
+          </div>
+        </div>
+        <div class="hero-stats" aria-label="Points forts EHE">
+          <span><strong>100%</strong> artisanal</span>
+          <span><strong>24h</strong> reponse WhatsApp</span>
+          <span><strong>4.9</strong> avis clients</span>
+        </div>
+      </section>
+
+      <section class="section section-light" id="collections">
+        <div class="section-head reveal">
+          <p class="eyebrow">Collections</p>
+          <h2>Des chaussures pour chaque moment</h2>
+          <p>Ville, ceremonie, sorties ou quotidien : chaque collection garde l'equilibre entre confort, elegance et caractere.</p>
+        </div>
+        <div class="collection-grid">
+          <a class="collection-tile reveal" href="#boutique">
+            <span>01</span>
+            <strong>Hommes</strong>
+            <small>Mocassins, ville, cuir</small>
+          </a>
+          <a class="collection-tile reveal" href="#boutique">
+            <span>02</span>
+            <strong>Femmes</strong>
+            <small>Sandales fines et modeles habilles</small>
+          </a>
+          <a class="collection-tile reveal" href="#boutique">
+            <span>03</span>
+            <strong>Ceremonie</strong>
+            <small>Finitions premium pour grands jours</small>
+          </a>
+          <a class="collection-tile reveal" href="#boutique">
+            <span>04</span>
+            <strong>Enfants</strong>
+            <small>Souplesse, maintien et style</small>
+          </a>
+        </div>
+      </section>
+
+      <section class="section" id="boutique">
+        <div class="section-head reveal">
+          <p class="eyebrow">Meilleures ventes</p>
+          <h2>Les pieces preferees des clients</h2>
+          <p>Une selection de modeles prets a commander via WhatsApp avec votre pointure, couleur et quantite.</p>
+        </div>
+
+        <div class="shop-controls" data-shop-controls>
+          <input type="search" placeholder="Rechercher une chaussure" aria-label="Rechercher une chaussure" data-product-search>
+          <select aria-label="Filtrer par categorie" data-category-filter>
+            <option value="">Toutes les categories</option>
+          </select>
+        </div>
+        <div class="product-grid" data-public-products>
+          <article class="product-card reveal" data-product data-name="Mocassin Noir Prestige" data-price="18000">
+            <button class="favorite" type="button" aria-label="Ajouter aux favoris">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7.5-4.4-9.2-9.1C1.6 7.4 3.5 4.5 6.7 4.5c1.8 0 3.2.9 4 2.1.8-1.2 2.2-2.1 4-2.1 3.2 0 5.1 2.9 3.9 6.4C19.5 15.6 12 20 12 20z"/></svg>
+            </button>
+            <div class="product-image shoe-one"></div>
+            <div class="product-body">
+              <p class="rating">★★★★★</p>
+              <h3>Mocassin Noir Prestige</h3>
+              <p>Cuir poli, couture main, silhouette habillee.</p>
+              <div class="product-meta">
+                <strong>18 000 FCFA</strong>
+                <select aria-label="Pointure">
+                  <option>40</option>
+                  <option>41</option>
+                  <option selected>42</option>
+                  <option>43</option>
+                </select>
+              </div>
+              <button class="btn btn-small" type="button" data-add-cart>Ajouter</button>
+            </div>
+          </article>
+
+          <article class="product-card reveal" data-product data-name="Sandale Marron Atelier" data-price="12000">
+            <button class="favorite" type="button" aria-label="Ajouter aux favoris">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7.5-4.4-9.2-9.1C1.6 7.4 3.5 4.5 6.7 4.5c1.8 0 3.2.9 4 2.1.8-1.2 2.2-2.1 4-2.1 3.2 0 5.1 2.9 3.9 6.4C19.5 15.6 12 20 12 20z"/></svg>
+            </button>
+            <div class="product-image shoe-two"></div>
+            <div class="product-body">
+              <p class="rating">★★★★★</p>
+              <h3>Sandale Marron Atelier</h3>
+              <p>Confort leger, brides cuir et semelle robuste.</p>
+              <div class="product-meta">
+                <strong>12 000 FCFA</strong>
+                <select aria-label="Pointure">
+                  <option>39</option>
+                  <option selected>40</option>
+                  <option>41</option>
+                  <option>42</option>
+                </select>
+              </div>
+              <button class="btn btn-small" type="button" data-add-cart>Ajouter</button>
+            </div>
+          </article>
+
+          <article class="product-card reveal" data-product data-name="Derby Cuir Ceremony" data-price="22000">
+            <button class="favorite" type="button" aria-label="Ajouter aux favoris">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7.5-4.4-9.2-9.1C1.6 7.4 3.5 4.5 6.7 4.5c1.8 0 3.2.9 4 2.1.8-1.2 2.2-2.1 4-2.1 3.2 0 5.1 2.9 3.9 6.4C19.5 15.6 12 20 12 20z"/></svg>
+            </button>
+            <div class="product-image shoe-three"></div>
+            <div class="product-body">
+              <p class="rating">★★★★★</p>
+              <h3>Derby Cuir Ceremony</h3>
+              <p>Ligne elegante pour mariage, reunion et reception.</p>
+              <div class="product-meta">
+                <strong>22 000 FCFA</strong>
+                <select aria-label="Pointure">
+                  <option>41</option>
+                  <option selected>42</option>
+                  <option>43</option>
+                  <option>44</option>
+                </select>
+              </div>
+              <button class="btn btn-small" type="button" data-add-cart>Ajouter</button>
+            </div>
+          </article>
+        </div>
+        <div class="pagination" data-pagination></div>
+      </section>
+
+      <section class="feature-band">
+        <div class="feature-copy reveal">
+          <p class="eyebrow">Pourquoi EHE ?</p>
+          <h2>Un achat simple, une impression premium</h2>
+        </div>
+        <div class="feature-list">
+          <div class="feature-item reveal"><span>✓</span><strong>Fabrication artisanale</strong><p>Chaque paire est travaillee avec soin par des cordonniers experimentes.</p></div>
+          <div class="feature-item reveal"><span>✓</span><strong>Cuir selectionne</strong><p>Des matieres choisies pour la tenue, le confort et la durabilite.</p></div>
+          <div class="feature-item reveal"><span>✓</span><strong>Commande WhatsApp</strong><p>Le panier cree automatiquement votre message de commande.</p></div>
+          <div class="feature-item reveal"><span>✓</span><strong>Livraison accompagnee</strong><p>Un contact direct pour confirmer disponibilite, adresse et delai.</p></div>
+        </div>
+      </section>
+
+      <section class="section craft-section" id="histoire">
+        <div class="craft-image reveal">
+          <img src="./assets/hero-ehe.png" alt="Chaussures artisanales EHE dans un atelier de cordonnier">
+        </div>
+        <div class="craft-copy reveal">
+          <p class="eyebrow">Notre savoir-faire</p>
+          <h2>L'artisanat qui se remarque dans les details</h2>
+          <p>EHE met en avant une chaussure elegante, solide et accessible. L'objectif est clair : inspirer confiance des les premieres secondes et donner envie de commander sans hesitation.</p>
+          <a class="text-link" href="#contact">Parler a EHE</a>
+        </div>
+      </section>
+
+      <section class="section section-light">
+        <div class="section-head reveal">
+          <p class="eyebrow">Avis clients</p>
+          <h2>Ils portent deja EHE</h2>
+        </div>
+        <div class="testimonial-grid">
+          <blockquote class="reveal">
+            <p>La finition est propre, la pointure etait correcte et la commande WhatsApp a ete rapide.</p>
+            <cite>Kevin A.</cite>
+          </blockquote>
+          <blockquote class="reveal">
+            <p>J'ai commande pour une ceremonie. Le rendu etait chic et confortable toute la journee.</p>
+            <cite>Nadia K.</cite>
+          </blockquote>
+          <blockquote class="reveal">
+            <p>On sent le travail artisanal. Belle qualite pour le prix.</p>
+            <cite>Serge M.</cite>
+          </blockquote>
+        </div>
+      </section>
+
+      <section class="newsletter" id="contact">
+        <div class="newsletter-inner reveal">
+          <p class="eyebrow">Contact</p>
+          <h2>Envoyer un message a EHE</h2>
+          <p class="contact-intro">Posez une question, demandez une pointure ou laissez vos coordonnees. Le message arrive directement dans le tableau de bord.</p>
+          <form class="contact-form" data-contact-form>
+            <div class="field-row">
+              <input name="name" type="text" placeholder="Votre nom" aria-label="Votre nom" required>
+              <input name="phone" type="tel" placeholder="Telephone" aria-label="Telephone">
+            </div>
+            <div class="field-row">
+              <input name="email" type="email" placeholder="Email" aria-label="Email">
+              <input name="subject" type="text" placeholder="Sujet" aria-label="Sujet">
+            </div>
+            <textarea name="message" placeholder="Votre message" aria-label="Votre message" required></textarea>
+            <button class="btn btn-primary" type="submit">Envoyer le message</button>
+          </form>
+          <a class="whatsapp-link" href="https://wa.me/22900000000" target="_blank" rel="noreferrer">WhatsApp EHE</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div>
+        <strong>EHE</strong>
+        <p>L'elegance artisanale a vos pieds.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#boutique">Boutique</a>
+        <a href="#collections">Collections</a>
+        <a href="./histoire.html">Notre histoire</a>
+        <a href="./faq.html">FAQ</a>
+        <a href="./contact.html">Contact</a>
+        <a href="./admin.html">Admin</a>
+      </div>
+    </footer>
+
+    <aside class="cart-panel" aria-hidden="true" data-cart-panel>
+      <div class="cart-head">
+        <strong>Panier EHE</strong>
+        <button type="button" aria-label="Fermer le panier" data-cart-close>×</button>
+      </div>
+      <div class="cart-items" data-cart-items>
+        <p class="empty-cart">Votre panier est vide.</p>
+      </div>
+      <div class="cart-total">
+        <span>Total</span>
+        <strong data-cart-total>0 FCFA</strong>
+      </div>
+      <a class="btn btn-primary cart-order" href="#" target="_blank" rel="noreferrer" data-whatsapp>Commander sur WhatsApp</a>
+    </aside>
+
+    <div class="toast" data-toast>Produit ajoute au panier</div>
+    <button class="top-button" type="button" aria-label="Retour en haut" data-top>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+    </button>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

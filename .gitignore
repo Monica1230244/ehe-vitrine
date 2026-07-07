@@ -1,0 +1,25 @@
+# Local/production secrets
+ehe-config.php
+*.env
+.env
+
+# Generated backups and private dumps
+backups/*.sql
+backups/*.zip
+*.bak
+
+# Uploaded runtime files to keep out of Git by default
+uploads/*
+!uploads/.gitkeep
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# Logs/cache
+*.log
+tmp/
+cache/

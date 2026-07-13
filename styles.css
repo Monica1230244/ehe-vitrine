@@ -1033,8 +1033,31 @@ cite {
 
 .checkout-form {
   display: grid;
-  gap: 10px;
-  padding: 0 0 16px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 12px;
+  margin: 0 0 16px;
+  padding: 14px;
+  border: 1px solid rgba(17, 24, 39, .1);
+  border-radius: var(--radius);
+  background: #fbf7ef;
+}
+
+.checkout-form-title {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: 2px;
+  padding-bottom: 2px;
+}
+
+.checkout-form-title strong {
+  color: var(--black);
+  font-size: .98rem;
+}
+
+.checkout-form-title span {
+  color: var(--gray);
+  font-size: .82rem;
+  line-height: 1.35;
 }
 
 .checkout-form label {
@@ -1045,16 +1068,24 @@ cite {
   font-weight: 800;
 }
 
+.checkout-form .checkout-full {
+  grid-column: 1 / -1;
+}
+
 .checkout-form input,
 .checkout-form textarea {
   width: 100%;
   border: 1px solid rgba(17, 24, 39, .14);
   border-radius: var(--radius);
-  padding: 11px 12px;
+  padding: 10px 11px;
   background: var(--white);
   color: var(--black);
   font: inherit;
   outline: none;
+}
+
+.checkout-form input {
+  height: 42px;
 }
 
 .checkout-form input:focus,
@@ -1065,7 +1096,7 @@ cite {
 
 .checkout-form textarea {
   resize: vertical;
-  min-height: 76px;
+  min-height: 70px;
 }
 
 .cart-order {

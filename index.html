@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="./styles.css?v=20260713">
   </head>
   <body>
     <div class="loader" aria-label="Chargement">
@@ -276,6 +276,10 @@
         <strong data-cart-total>0 FCFA</strong>
       </div>
       <form class="checkout-form" data-checkout-form>
+        <div class="checkout-form-title">
+          <strong>Vos informations</strong>
+          <span>Ces details seront envoyes avec la commande.</span>
+        </div>
         <label>
           Nom
           <input name="last_name" type="text" autocomplete="family-name" required>
@@ -284,11 +288,11 @@
           Prenom
           <input name="first_name" type="text" autocomplete="given-name" required>
         </label>
-        <label>
+        <label class="checkout-full">
           Telephone
           <input name="phone" type="tel" autocomplete="tel" required>
         </label>
-        <label>
+        <label class="checkout-full">
           Adresse de livraison
           <textarea name="address" rows="3" autocomplete="street-address" required></textarea>
         </label>

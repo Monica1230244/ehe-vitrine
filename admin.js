@@ -3,6 +3,7 @@ const list = document.querySelector("[data-product-list]");
 const orderList = document.querySelector("[data-order-list]");
 const messageList = document.querySelector("[data-message-list]");
 const resetButton = document.querySelector("[data-reset-form]");
+const refreshOrdersButton = document.querySelector("[data-refresh-orders]");
 const refreshMessagesButton = document.querySelector("[data-refresh-messages]");
 const imageInput = document.querySelector("[data-product-image]");
 const imagePreview = document.querySelector("[data-image-preview]");
@@ -195,7 +196,7 @@ async function loadOrders() {
   orderList.innerHTML = '<div class="order-row"><div><strong>Chargement</strong><small>Recuperation des commandes...</small></div></div>';
 
   try {
-    const response = await fetch(ordersApi);
+    const response = await fetch(ordersApi, { cache: "no-store" });
     const result = await response.json();
 
     if (!response.ok || !result.success) {
@@ -288,6 +289,7 @@ async function loadMessages() {
 
 form.addEventListener("submit", saveProduct);
 resetButton.addEventListener("click", resetForm);
+refreshOrdersButton.addEventListener("click", loadOrders);
 refreshMessagesButton.addEventListener("click", loadMessages);
 logoutButton.addEventListener("click", async () => {
   await fetch("./api/auth.php?action=logout", {

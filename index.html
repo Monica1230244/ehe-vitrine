@@ -275,6 +275,24 @@
         <span>Total</span>
         <strong data-cart-total>0 FCFA</strong>
       </div>
+      <form class="checkout-form" data-checkout-form>
+        <label>
+          Nom
+          <input name="last_name" type="text" autocomplete="family-name" required>
+        </label>
+        <label>
+          Prenom
+          <input name="first_name" type="text" autocomplete="given-name" required>
+        </label>
+        <label>
+          Telephone
+          <input name="phone" type="tel" autocomplete="tel" required>
+        </label>
+        <label>
+          Adresse de livraison
+          <textarea name="address" rows="3" autocomplete="street-address" required></textarea>
+        </label>
+      </form>
       <a class="btn btn-primary cart-order" href="#" target="_blank" rel="noreferrer" data-whatsapp>Commander sur WhatsApp</a>
     </aside>
 

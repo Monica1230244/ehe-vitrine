@@ -7,6 +7,7 @@ const cartCount = document.querySelector("[data-cart-count]");
 const cartItems = document.querySelector("[data-cart-items]");
 const cartTotal = document.querySelector("[data-cart-total]");
 const whatsapp = document.querySelector("[data-whatsapp]");
+const checkoutForm = document.querySelector("[data-checkout-form]");
 const toast = document.querySelector("[data-toast]");
 const topButton = document.querySelector("[data-top]");
 const productGrid = document.querySelector("[data-public-products]");
@@ -76,7 +77,23 @@ const availabilityLabel = (value) => ({
   out_of_stock: "Indisponible"
 }[value] || "Disponible");
 
-const buildOrderText = () => {
+const getCustomerInfo = () => {
+  const data = Object.fromEntries(new FormData(checkoutForm).entries());
+  const firstName = String(data.first_name || "").trim();
+  const lastName = String(data.last_name || "").trim();
+  const phone = String(data.phone || "").trim();
+  const address = String(data.address || "").trim();
+
+  return {
+    firstName,
+    lastName,
+    fullName: [firstName, lastName].filter(Boolean).join(" "),
+    phone,
+    address
+  };
+};
+
+const buildOrderText = (customer = null) => {
   const lines = ["Bonjour EHE", "", "Je souhaite commander :", ""];
 
   cart.forEach((item, index) => {
@@ -92,18 +109,20 @@ const buildOrderText = () => {
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
   lines.push(`TOTAL : ${formatPrice(total)}`);
   lines.push("");
-  lines.push("Nom :");
-  lines.push("Adresse :");
-  lines.push("Telephone :");
+  lines.push("Informations client :");
+  lines.push(`Nom : ${customer?.lastName || ""}`);
+  lines.push(`Prenom : ${customer?.firstName || ""}`);
+  lines.push(`Telephone : ${customer?.phone || ""}`);
+  lines.push(`Adresse : ${customer?.address || ""}`);
   lines.push("");
   lines.push("Merci.");
 
   return lines.join("\n");
 };
 
-const buildWhatsAppLink = () => {
+const buildWhatsAppLink = (customer = null) => {
   if (!cart.length) return `https://wa.me/${whatsappNumber}`;
-  return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(buildOrderText())}`;
+  return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(buildOrderText(customer))}`;
 };
 
 const renderCart = () => {
@@ -302,7 +321,10 @@ whatsapp.addEventListener("click", async (event) => {
   }
 
   event.preventDefault();
-  const whatsappLink = buildWhatsAppLink();
+  if (!checkoutForm.reportValidity()) return;
+
+  const customer = getCustomerInfo();
+  const whatsappLink = buildWhatsAppLink(customer);
   const whatsappWindow = window.open("about:blank", "_blank", "noopener");
   whatsapp.textContent = "Preparation...";
 
@@ -311,8 +333,11 @@ whatsapp.addEventListener("click", async (event) => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
+        customer_name: customer.fullName || "Client WhatsApp",
+        customer_phone: customer.phone,
+        customer_address: customer.address,
         items: cart,
-        whatsapp_message: buildOrderText()
+        whatsapp_message: buildOrderText(customer)
       })
     });
   } catch {

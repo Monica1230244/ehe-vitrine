@@ -223,9 +223,13 @@ async function loadOrders() {
           <div>
             <strong>${escapeHtml(order.order_number)} · ${escapeHtml(order.customer_name)}</strong>
             <small>${itemsText || "Commande"} · ${formatPrice(order.total_amount)}</small>
+            <small>${escapeHtml(order.customer_phone || "Telephone non renseigne")} - ${escapeHtml(order.customer_address || "Adresse non renseignee")}</small>
             <small>${escapeHtml(formatDate(order.created_at))}</small>
             <details>
               <summary>Voir details</summary>
+              <p><strong>Client :</strong> ${escapeHtml(order.customer_name)}</p>
+              <p><strong>Telephone :</strong> ${escapeHtml(order.customer_phone || "Non renseigne")}</p>
+              <p><strong>Adresse :</strong> ${escapeHtml(order.customer_address || "Non renseignee")}</p>
               <ul>${detailRows}</ul>
               ${order.whatsapp_message ? `<pre>${escapeHtml(order.whatsapp_message)}</pre>` : ""}
             </details>

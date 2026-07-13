@@ -216,7 +216,7 @@ async function loadOrders() {
       const items = order.items || [];
       const itemsText = items.map((item) => `${escapeHtml(item.product_name)} x${item.quantity}`).join(", ");
       const detailRows = items.map((item) => `
-        <li>${escapeHtml(item.product_name)} · Pointure ${escapeHtml(item.size_label)} · Qté ${item.quantity} · ${formatPrice(item.total_price)}</li>
+        <li>${escapeHtml(item.product_name)} · Pointure ${escapeHtml(item.size_label)} · Qté ${item.quantity} · Prix unitaire ${formatPrice(item.unit_price)} · Total ${formatPrice(item.total_price)}</li>
       `).join("");
       return `
         <div class="order-row order-card">

@@ -102,7 +102,8 @@ const buildOrderText = (customer = null) => {
     if (item.color) lines.push(`Couleur : ${item.color}`);
     if (item.availability === "made_to_order") lines.push("Type : sur commande");
     lines.push(`Quantite : ${item.quantity}`);
-    lines.push(`Prix : ${formatPrice(item.price * item.quantity)}`);
+    lines.push(`Prix unitaire : ${formatPrice(item.price)}`);
+    lines.push(`Total ligne : ${formatPrice(item.price * item.quantity)}`);
     lines.push("------------------");
   });
 

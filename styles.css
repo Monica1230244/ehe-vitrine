@@ -191,10 +191,12 @@ body.loaded .loader {
   position: relative;
   min-height: 94vh;
   display: grid;
-  align-items: center;
+  place-items: center;
   overflow: hidden;
   padding: 120px clamp(18px, 6vw, 90px) 80px;
   color: var(--white);
+  text-align: center;
+  background: #111827;
 }
 
 .hero-media,
@@ -204,22 +206,33 @@ body.loaded .loader {
 }
 
 .hero-media img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  animation: heroZoom 9s ease-out forwards;
+  opacity: 0;
+  transform: scale(1.06);
+  animation: heroCarousel 14s ease-in-out infinite;
+}
+
+.hero-media img:nth-child(2) {
+  animation-delay: 7s;
 }
 
 .hero-overlay {
   background:
-    linear-gradient(90deg, rgba(17, 24, 39, .88) 0%, rgba(17, 24, 39, .56) 43%, rgba(17, 24, 39, .14) 100%),
-    linear-gradient(0deg, rgba(17, 24, 39, .56), transparent 38%);
+    radial-gradient(circle at center, rgba(17, 24, 39, .34) 0%, rgba(17, 24, 39, .68) 64%, rgba(17, 24, 39, .9) 100%),
+    linear-gradient(0deg, rgba(17, 24, 39, .64), transparent 42%);
 }
 
 .hero-content {
   position: relative;
   max-width: 680px;
   z-index: 1;
+  display: grid;
+  justify-items: center;
+  margin: 0 auto;
 }
 
 .eyebrow {
@@ -253,6 +266,8 @@ h1 {
 
 .hero-copy {
   max-width: 560px;
+  margin-left: auto;
+  margin-right: auto;
   color: rgba(255, 255, 255, .82);
   font-size: clamp(1rem, 1.6vw, 1.18rem);
 }
@@ -260,6 +275,7 @@ h1 {
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 14px;
   margin-top: 30px;
 }
@@ -317,6 +333,7 @@ h1 {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .hero-stats span {
@@ -1174,12 +1191,30 @@ cite {
   transform: translateY(0);
 }
 
-@keyframes heroZoom {
-  from {
+@keyframes heroCarousel {
+  0% {
+    opacity: 0;
     transform: scale(1.08);
   }
-  to {
+  8%,
+  46% {
+    opacity: 1;
+  }
+  56%,
+  100% {
+    opacity: 0;
     transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-media img {
+    animation: none;
+  }
+
+  .hero-media img:first-child {
+    opacity: 1;
+    transform: none;
   }
 }
 
@@ -1278,7 +1313,7 @@ cite {
 
   .hero-overlay {
     background:
-      linear-gradient(90deg, rgba(17, 24, 39, .9), rgba(17, 24, 39, .6)),
+      radial-gradient(circle at center, rgba(17, 24, 39, .34) 0%, rgba(17, 24, 39, .74) 68%, rgba(17, 24, 39, .92) 100%),
       linear-gradient(0deg, rgba(17, 24, 39, .58), transparent 42%);
   }
 

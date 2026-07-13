@@ -94,13 +94,12 @@ async function loadProduct() {
         <label>Couleur<select data-color>${colors.map((color) => `<option>${escapeHtml(color)}</option>`).join("")}</select></label>
         <form class="checkout-form product-checkout-form" data-product-checkout>
           <div class="checkout-form-title">
-            <strong>Vos informations</strong>
-            <span>Ces details seront envoyes avec la commande.</span>
+            <strong>Infos client</strong>
           </div>
           <label>Nom<input name="last_name" type="text" autocomplete="family-name" required></label>
           <label>Prenom<input name="first_name" type="text" autocomplete="given-name" required></label>
           <label class="checkout-full">Telephone<input name="phone" type="tel" autocomplete="tel" required></label>
-          <label class="checkout-full">Adresse de livraison<textarea name="address" rows="3" autocomplete="street-address" required></textarea></label>
+          <label class="checkout-full">Adresse de livraison<input name="address" type="text" autocomplete="street-address" required></label>
         </form>
         <button class="btn btn-primary" data-order ${canOrder ? "" : "disabled"}>${canOrder ? "Commander sur WhatsApp" : "Indisponible"}</button>
       </div>

@@ -956,7 +956,7 @@ cite {
   z-index: 80;
   width: min(420px, 100%);
   height: 100vh;
-  padding: 24px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   background: var(--white);
@@ -973,7 +973,7 @@ cite {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-bottom: 18px;
+  padding-bottom: 12px;
   border-bottom: 1px solid rgba(17, 24, 39, .12);
   color: var(--black);
 }
@@ -990,7 +990,7 @@ cite {
 .cart-items {
   flex: 1;
   overflow: auto;
-  padding: 18px 0;
+  padding: 12px 0;
 }
 
 .empty-cart {
@@ -1001,7 +1001,7 @@ cite {
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 10px;
-  padding: 14px 0;
+  padding: 10px 0;
   border-bottom: 1px solid rgba(17, 24, 39, .1);
 }
 
@@ -1012,6 +1012,7 @@ cite {
 .cart-row small {
   display: block;
   color: var(--gray);
+  line-height: 1.35;
 }
 
 .cart-row button {
@@ -1025,46 +1026,41 @@ cite {
 .cart-total {
   display: flex;
   justify-content: space-between;
-  padding: 18px 0;
+  padding: 12px 0;
   border-top: 1px solid rgba(17, 24, 39, .12);
   color: var(--black);
-  font-size: 1.15rem;
+  font-size: 1.05rem;
 }
 
 .checkout-form {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px 12px;
-  margin: 0 0 16px;
-  padding: 14px;
+  gap: 8px 10px;
+  margin: 0 0 12px;
+  padding: 10px;
   border: 1px solid rgba(17, 24, 39, .1);
-  border-radius: var(--radius);
+  border-radius: 12px;
   background: #fbf7ef;
 }
 
 .checkout-form-title {
   grid-column: 1 / -1;
-  display: grid;
-  gap: 2px;
-  padding-bottom: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 20px;
 }
 
 .checkout-form-title strong {
   color: var(--black);
-  font-size: .98rem;
-}
-
-.checkout-form-title span {
-  color: var(--gray);
-  font-size: .82rem;
-  line-height: 1.35;
+  font-size: .9rem;
 }
 
 .checkout-form label {
   display: grid;
-  gap: 6px;
+  gap: 4px;
   color: var(--black);
-  font-size: .88rem;
+  font-size: .78rem;
   font-weight: 800;
 }
 
@@ -1072,12 +1068,11 @@ cite {
   grid-column: 1 / -1;
 }
 
-.checkout-form input,
-.checkout-form textarea {
+.checkout-form input {
   width: 100%;
   border: 1px solid rgba(17, 24, 39, .14);
-  border-radius: var(--radius);
-  padding: 10px 11px;
+  border-radius: 10px;
+  padding: 8px 10px;
   background: var(--white);
   color: var(--black);
   font: inherit;
@@ -1085,18 +1080,12 @@ cite {
 }
 
 .checkout-form input {
-  height: 42px;
+  height: 36px;
 }
 
-.checkout-form input:focus,
-.checkout-form textarea:focus {
+.checkout-form input:focus {
   border-color: rgba(212, 175, 55, .78);
   box-shadow: 0 0 0 3px rgba(212, 175, 55, .16);
-}
-
-.checkout-form textarea {
-  resize: vertical;
-  min-height: 70px;
 }
 
 .cart-order {

@@ -18,7 +18,8 @@ const availabilityLabel = (value) => ({
   out_of_stock: "Indisponible"
 }[value] || "Disponible");
 
-function buildWhatsAppLink(product, size, color, customer) {
+function buildWhatsAppLink(product, size, color, quantity, customer) {
+  const total = Number(product.price) * quantity;
   const lines = [
     "Bonjour EHE",
     "",
@@ -28,7 +29,8 @@ function buildWhatsAppLink(product, size, color, customer) {
     `Pointure : ${size}`,
     color ? `Couleur : ${color}` : "",
     product.availability_status === "made_to_order" ? "Type : sur commande" : "",
-    `Prix : ${formatPrice(product.price)}`,
+    `Quantite : ${quantity}`,
+    `Prix : ${formatPrice(total)}`,
     "",
     "Informations client :",
     `Nom : ${customer.lastName}`,
@@ -42,8 +44,8 @@ function buildWhatsAppLink(product, size, color, customer) {
   return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(lines.join("\n"))}`;
 }
 
-function buildOrderText(product, size, color, customer) {
-  const url = buildWhatsAppLink(product, size, color, customer);
+function buildOrderText(product, size, color, quantity, customer) {
+  const url = buildWhatsAppLink(product, size, color, quantity, customer);
   return decodeURIComponent(url.split("text=")[1] || "");
 }
 
@@ -92,6 +94,7 @@ async function loadProduct() {
         <p>${escapeHtml(product.description || product.short_description || "")}</p>
         <label>Pointure<select data-size>${sizes.map((size) => `<option>${escapeHtml(size)}</option>`).join("")}</select></label>
         <label>Couleur<select data-color>${colors.map((color) => `<option>${escapeHtml(color)}</option>`).join("")}</select></label>
+        <label>Quantite<input class="product-quantity" data-product-quantity type="number" min="1" max="99" value="1"></label>
         <form class="checkout-form product-checkout-form" data-product-checkout>
           <div class="checkout-form-title">
             <strong>Infos client</strong>
@@ -112,8 +115,9 @@ async function loadProduct() {
 
     const size = root.querySelector("[data-size]").value;
     const color = root.querySelector("[data-color]").value;
+    const quantity = Math.max(1, Math.min(99, Number(root.querySelector("[data-product-quantity]").value) || 1));
     const customer = getCustomerInfo(form);
-    const whatsappLink = buildWhatsAppLink(product, size, color, customer);
+    const whatsappLink = buildWhatsAppLink(product, size, color, quantity, customer);
     const whatsappWindow = window.open("about:blank", "_blank", "noopener");
     event.currentTarget.textContent = "Preparation...";
 
@@ -130,9 +134,9 @@ async function loadProduct() {
             price: product.price,
             size,
             color,
-            quantity: 1
+            quantity
           }],
-          whatsapp_message: buildOrderText(product, size, color, customer)
+          whatsapp_message: buildOrderText(product, size, color, quantity, customer)
         })
       });
     } catch {

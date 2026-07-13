@@ -701,7 +701,8 @@ h3 {
 
 .page-contact-form input,
 .page-contact-form textarea,
-.product-detail select {
+.product-detail select,
+.product-detail input {
   width: 100%;
   border: 1px solid rgba(17, 24, 39, .14);
   border-radius: var(--radius);
@@ -710,7 +711,8 @@ h3 {
 }
 
 .page-contact-form input,
-.product-detail select {
+.product-detail select,
+.product-detail input {
   height: 48px;
   padding: 0 14px;
 }
@@ -1021,6 +1023,33 @@ cite {
   color: #b42318;
   cursor: pointer;
   font-weight: 800;
+}
+
+.cart-row-actions {
+  display: grid;
+  justify-items: end;
+  gap: 6px;
+}
+
+.cart-row-actions label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--gray);
+  font-size: .78rem;
+  font-weight: 800;
+}
+
+.cart-row-actions input {
+  width: 58px;
+  height: 34px;
+  border: 1px solid rgba(17, 24, 39, .14);
+  border-radius: 10px;
+  padding: 0 6px;
+  color: var(--black);
+  font: inherit;
+  font-weight: 800;
+  text-align: center;
 }
 
 .cart-total {

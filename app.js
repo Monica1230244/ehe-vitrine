@@ -138,10 +138,16 @@ const renderCart = () => {
     row.innerHTML = `
       <div>
         <strong>${escapeHtml(item.name)}</strong>
-        <small>Pointure ${escapeHtml(item.size)}${item.color ? ` · ${escapeHtml(item.color)}` : ""} · Quantite ${item.quantity}</small>
+        <small>Pointure ${escapeHtml(item.size)}${item.color ? ` · ${escapeHtml(item.color)}` : ""}</small>
         <small>${formatPrice(item.price * item.quantity)}</small>
       </div>
-      <button type="button" aria-label="Supprimer ${escapeHtml(item.name)}" data-remove="${index}">Retirer</button>
+      <div class="cart-row-actions">
+        <label>
+          Qte
+          <input type="number" min="1" max="99" value="${item.quantity}" data-quantity="${index}" aria-label="Quantite ${escapeHtml(item.name)}">
+        </label>
+        <button type="button" aria-label="Supprimer ${escapeHtml(item.name)}" data-remove="${index}">Retirer</button>
+      </div>
     `;
     cartItems.appendChild(row);
   });
@@ -297,6 +303,35 @@ cartItems.addEventListener("click", (event) => {
   if (!button) return;
   cart.splice(Number(button.dataset.remove), 1);
   renderCart();
+});
+
+cartItems.addEventListener("change", (event) => {
+  const input = event.target.closest("[data-quantity]");
+  if (!input) return;
+
+  const index = Number(input.dataset.quantity);
+  const quantity = Math.max(1, Math.min(99, Number(input.value) || 1));
+
+  if (!cart[index]) return;
+  cart[index].quantity = quantity;
+  renderCart();
+});
+
+cartItems.addEventListener("input", (event) => {
+  const input = event.target.closest("[data-quantity]");
+  if (!input) return;
+
+  const index = Number(input.dataset.quantity);
+  const quantity = Math.max(1, Math.min(99, Number(input.value) || 1));
+
+  if (!cart[index]) return;
+  cart[index].quantity = quantity;
+
+  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+  cartTotal.textContent = formatPrice(total);
+  cartCount.textContent = count;
+  whatsapp.href = buildWhatsAppLink();
 });
 
 cartOpen.addEventListener("click", () => {

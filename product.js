@@ -3,6 +3,10 @@ const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
 const slug = params.get("slug");
 const whatsappNumber = "22945556311";
+const imageModal = document.querySelector("[data-image-modal]");
+const imageModalImg = document.querySelector("[data-image-modal-img]");
+const imageModalTitle = document.querySelector("[data-image-modal-title]");
+const imageModalClose = document.querySelector("[data-image-modal-close]");
 
 const escapeHtml = (value) => String(value ?? "")
   .replaceAll("&", "&amp;")
@@ -17,6 +21,24 @@ const availabilityLabel = (value) => ({
   made_to_order: "Sur commande",
   out_of_stock: "Indisponible"
 }[value] || "Disponible");
+
+function openImageModal(src, title) {
+  if (!src || !imageModal || !imageModalImg) return;
+  imageModalImg.src = src;
+  imageModalImg.alt = title ? `Image du produit ${title}` : "Image du produit";
+  if (imageModalTitle) imageModalTitle.textContent = title || "Produit EHE";
+  imageModal.classList.add("open");
+  imageModal.setAttribute("aria-hidden", "false");
+  document.body.classList.add("modal-open");
+}
+
+function closeImageModal() {
+  if (!imageModal || !imageModalImg) return;
+  imageModal.classList.remove("open");
+  imageModal.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("modal-open");
+  imageModalImg.src = "";
+}
 
 function buildWhatsAppLink(product, size, color, quantity, customer) {
   const total = Number(product.price) * quantity;
@@ -86,7 +108,7 @@ async function loadProduct() {
   root.innerHTML = `
     <section class="product-detail-grid">
       <div class="detail-image">
-        <img src="${escapeHtml(product.image || "assets/hero-ehe.png")}" alt="${escapeHtml(product.name)}">
+        <img src="${escapeHtml(product.image || "assets/hero-ehe.png")}" alt="${escapeHtml(product.name)}" role="button" tabindex="0" data-detail-image>
       </div>
       <div class="detail-copy">
         <p class="eyebrow">${escapeHtml(product.category)}</p>
@@ -110,6 +132,16 @@ async function loadProduct() {
       </div>
     </section>
   `;
+
+  const detailImage = root.querySelector("[data-detail-image]");
+  detailImage?.addEventListener("click", () => {
+    openImageModal(detailImage.getAttribute("src"), product.name);
+  });
+  detailImage?.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter" && event.key !== " ") return;
+    event.preventDefault();
+    openImageModal(detailImage.getAttribute("src"), product.name);
+  });
 
   root.querySelector("[data-order]")?.addEventListener("click", async (event) => {
     const form = root.querySelector("[data-product-checkout]");
@@ -153,5 +185,17 @@ async function loadProduct() {
     }
   });
 }
+
+imageModalClose?.addEventListener("click", closeImageModal);
+
+imageModal?.addEventListener("click", (event) => {
+  if (event.target === imageModal) closeImageModal();
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && imageModal?.classList.contains("open")) {
+    closeImageModal();
+  }
+});
 
 loadProduct();

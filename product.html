@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./styles.css?v=20260713b">
+    <link rel="stylesheet" href="./styles.css?v=20260714b">
   </head>
   <body class="inner-page">
     <header class="simple-header">
@@ -25,6 +25,14 @@
       <h1>Chargement...</h1>
     </main>
 
-    <script src="./product.js?v=20260713d"></script>
+    <div class="image-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Apercu du produit" data-image-modal>
+      <button class="image-modal-close" type="button" aria-label="Fermer l'image" data-image-modal-close>×</button>
+      <figure class="image-modal-card">
+        <img src="" alt="" data-image-modal-img>
+        <figcaption data-image-modal-title></figcaption>
+      </figure>
+    </div>
+
+    <script src="./product.js?v=20260714b"></script>
   </body>
 </html>

@@ -783,6 +783,12 @@ h3 {
   object-fit: cover;
   border-radius: var(--radius);
   box-shadow: var(--shadow);
+  cursor: zoom-in;
+  outline: none;
+}
+
+.detail-image img:focus-visible {
+  box-shadow: var(--shadow), 0 0 0 4px rgba(215, 179, 107, .85);
 }
 
 .detail-copy {

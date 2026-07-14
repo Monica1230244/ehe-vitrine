@@ -116,7 +116,7 @@
             <button class="favorite" type="button" aria-label="Ajouter aux favoris">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7.5-4.4-9.2-9.1C1.6 7.4 3.5 4.5 6.7 4.5c1.8 0 3.2.9 4 2.1.8-1.2 2.2-2.1 4-2.1 3.2 0 5.1 2.9 3.9 6.4C19.5 15.6 12 20 12 20z"/></svg>
             </button>
-            <div class="product-image shoe-one"></div>
+            <div class="product-image shoe-one" role="button" tabindex="0" aria-label="Voir Mocassin Noir Prestige en grand" data-image-preview data-image-src="./assets/hero-ehe.png" data-image-title="Mocassin Noir Prestige"></div>
             <div class="product-body">
               <p class="rating">★★★★★</p>
               <h3>Mocassin Noir Prestige</h3>
@@ -138,7 +138,7 @@
             <button class="favorite" type="button" aria-label="Ajouter aux favoris">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7.5-4.4-9.2-9.1C1.6 7.4 3.5 4.5 6.7 4.5c1.8 0 3.2.9 4 2.1.8-1.2 2.2-2.1 4-2.1 3.2 0 5.1 2.9 3.9 6.4C19.5 15.6 12 20 12 20z"/></svg>
             </button>
-            <div class="product-image shoe-two"></div>
+            <div class="product-image shoe-two" role="button" tabindex="0" aria-label="Voir Sandale Marron Atelier en grand" data-image-preview data-image-src="./assets/hero-ehe.png" data-image-title="Sandale Marron Atelier"></div>
             <div class="product-body">
               <p class="rating">★★★★★</p>
               <h3>Sandale Marron Atelier</h3>
@@ -160,7 +160,7 @@
             <button class="favorite" type="button" aria-label="Ajouter aux favoris">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7.5-4.4-9.2-9.1C1.6 7.4 3.5 4.5 6.7 4.5c1.8 0 3.2.9 4 2.1.8-1.2 2.2-2.1 4-2.1 3.2 0 5.1 2.9 3.9 6.4C19.5 15.6 12 20 12 20z"/></svg>
             </button>
-            <div class="product-image shoe-three"></div>
+            <div class="product-image shoe-three" role="button" tabindex="0" aria-label="Voir Derby Cuir Ceremony en grand" data-image-preview data-image-src="./assets/hero-ehe.png" data-image-title="Derby Cuir Ceremony"></div>
             <div class="product-body">
               <p class="rating">★★★★★</p>
               <h3>Derby Cuir Ceremony</h3>
@@ -300,11 +300,19 @@
       <a class="btn btn-primary cart-order" href="#" target="_blank" rel="noreferrer" data-whatsapp>Commander sur WhatsApp</a>
     </aside>
 
+    <div class="image-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Apercu du produit" data-image-modal>
+      <button class="image-modal-close" type="button" aria-label="Fermer l'image" data-image-modal-close>×</button>
+      <figure class="image-modal-card">
+        <img src="" alt="" data-image-modal-img>
+        <figcaption data-image-modal-title></figcaption>
+      </figure>
+    </div>
+
     <div class="toast" data-toast>Produit ajoute au panier</div>
     <button class="top-button" type="button" aria-label="Retour en haut" data-top>
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
     </button>
 
-    <script src="./app.js?v=20260713d"></script>
+    <script src="./app.js?v=20260714a"></script>
   </body>
 </html>

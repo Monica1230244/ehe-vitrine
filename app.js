@@ -14,6 +14,10 @@ const productGrid = document.querySelector("[data-public-products]");
 const productSearch = document.querySelector("[data-product-search]");
 const categoryFilter = document.querySelector("[data-category-filter]");
 const pagination = document.querySelector("[data-pagination]");
+const imageModal = document.querySelector("[data-image-modal]");
+const imageModalImg = document.querySelector("[data-image-modal-img]");
+const imageModalTitle = document.querySelector("[data-image-modal-title]");
+const imageModalClose = document.querySelector("[data-image-modal-close]");
 const cart = [];
 const whatsappNumber = "22945556311";
 let allProducts = [];
@@ -76,6 +80,24 @@ const availabilityLabel = (value) => ({
   made_to_order: "Sur commande",
   out_of_stock: "Indisponible"
 }[value] || "Disponible");
+
+const openImageModal = (src, title) => {
+  if (!src || !imageModal || !imageModalImg) return;
+  imageModalImg.src = src;
+  imageModalImg.alt = title ? `Image du produit ${title}` : "Image du produit";
+  if (imageModalTitle) imageModalTitle.textContent = title || "Produit EHE";
+  imageModal.classList.add("open");
+  imageModal.setAttribute("aria-hidden", "false");
+  document.body.classList.add("modal-open");
+};
+
+const closeImageModal = () => {
+  if (!imageModal || !imageModalImg) return;
+  imageModal.classList.remove("open");
+  imageModal.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("modal-open");
+  imageModalImg.src = "";
+};
 
 const getCustomerInfo = () => {
   const data = Object.fromEntries(new FormData(checkoutForm).entries());
@@ -221,7 +243,7 @@ function renderVisibleProducts() {
       <button class="favorite" type="button" aria-label="Ajouter aux favoris">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7.5-4.4-9.2-9.1C1.6 7.4 3.5 4.5 6.7 4.5c1.8 0 3.2.9 4 2.1.8-1.2 2.2-2.1 4-2.1 3.2 0 5.1 2.9 3.9 6.4C19.5 15.6 12 20 12 20z"/></svg>
       </button>
-      <div class="product-image product-photo" style="background-image:url('${escapeHtml(product.image || "assets/hero-ehe.png")}')"></div>
+      <div class="product-image product-photo" role="button" tabindex="0" aria-label="Voir ${escapeHtml(product.name)} en grand" data-image-preview data-image-src="${escapeHtml(product.image || "assets/hero-ehe.png")}" data-image-title="${escapeHtml(product.name)}" style="background-image:url('${escapeHtml(product.image || "assets/hero-ehe.png")}')"></div>
       <div class="product-body">
         <p class="rating">★★★★★</p>
         <h3><a href="./product.html?id=${encodeURIComponent(product.id)}">${escapeHtml(product.name)}</a></h3>
@@ -255,6 +277,12 @@ async function loadPublicProducts() {
 }
 
 productGrid?.addEventListener("click", (event) => {
+  const preview = event.target.closest("[data-image-preview]");
+  if (preview) {
+    openImageModal(preview.dataset.imageSrc, preview.dataset.imageTitle);
+    return;
+  }
+
   const favorite = event.target.closest(".favorite");
   if (favorite) {
     favorite.classList.toggle("active");
@@ -280,6 +308,26 @@ productGrid?.addEventListener("click", (event) => {
 
   renderCart();
   showToast();
+});
+
+productGrid?.addEventListener("keydown", (event) => {
+  if (event.key !== "Enter" && event.key !== " ") return;
+  const preview = event.target.closest("[data-image-preview]");
+  if (!preview) return;
+  event.preventDefault();
+  openImageModal(preview.dataset.imageSrc, preview.dataset.imageTitle);
+});
+
+imageModalClose?.addEventListener("click", closeImageModal);
+
+imageModal?.addEventListener("click", (event) => {
+  if (event.target === imageModal) closeImageModal();
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && imageModal?.classList.contains("open")) {
+    closeImageModal();
+  }
 });
 
 productSearch?.addEventListener("input", () => {

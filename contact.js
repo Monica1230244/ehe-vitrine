@@ -10,8 +10,24 @@ function showToast(message) {
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
   const submit = form.querySelector("button");
+  const status = form.querySelector("[data-form-status]");
+
+  if (window.location.protocol === "file:") {
+    const message = "Veuillez ouvrir le site avec http://localhost/ventes/ pour envoyer le message.";
+    if (status) {
+      status.textContent = message;
+      status.className = "form-status error";
+    }
+    showToast(message);
+    return;
+  }
+
   submit.disabled = true;
   submit.textContent = "Envoi...";
+  if (status) {
+    status.textContent = "";
+    status.className = "form-status";
+  }
 
   try {
     const response = await fetch("./api/contact.php", {
@@ -22,8 +38,16 @@ form.addEventListener("submit", async (event) => {
     const result = await response.json();
     if (!response.ok || !result.success) throw new Error(result.message || "Message non envoye");
     form.reset();
+    if (status) {
+      status.textContent = "Votre message a bien ete envoye. EHE vous repondra rapidement.";
+      status.className = "form-status success";
+    }
     showToast("Message envoye a EHE");
   } catch (error) {
+    if (status) {
+      status.textContent = error.message || "Erreur pendant l envoi. Veuillez reessayer.";
+      status.className = "form-status error";
+    }
     showToast(error.message || "Erreur pendant l envoi");
   } finally {
     submit.disabled = false;

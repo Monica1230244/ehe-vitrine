@@ -977,6 +977,25 @@ cite {
   box-shadow: 0 0 0 4px rgba(212, 175, 55, .14);
 }
 
+.form-status {
+  min-height: 24px;
+  margin: 2px 0 0;
+  font-weight: 800;
+  text-align: center;
+}
+
+.form-status.success {
+  color: #12b76a;
+}
+
+.form-status.error {
+  color: #f97066;
+}
+
+.page-contact-form .form-status {
+  text-align: left;
+}
+
 .whatsapp-link {
   color: var(--gold);
   font-weight: 800;

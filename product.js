@@ -7,6 +7,8 @@ const imageModal = document.querySelector("[data-image-modal]");
 const imageModalImg = document.querySelector("[data-image-modal-img]");
 const imageModalTitle = document.querySelector("[data-image-modal-title]");
 const imageModalClose = document.querySelector("[data-image-modal-close]");
+const imageModalSimilar = document.querySelector("[data-image-modal-similar]");
+let similarProducts = [];
 
 const escapeHtml = (value) => String(value ?? "")
   .replaceAll("&", "&amp;")
@@ -22,11 +24,32 @@ const availabilityLabel = (value) => ({
   out_of_stock: "Indisponible"
 }[value] || "Disponible");
 
-function openImageModal(src, title) {
+function renderSimilarImages(images = []) {
+  if (!imageModalSimilar) return;
+  imageModalSimilar.innerHTML = "";
+  if (!images.length) return;
+
+  images.forEach((image) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "image-modal-thumb";
+    button.setAttribute("aria-label", `Voir ${image.title || "ce produit"} en grand`);
+    button.innerHTML = `<img src="${escapeHtml(image.src)}" alt="${escapeHtml(image.title || "Produit EHE")}">`;
+    button.addEventListener("click", () => {
+      imageModalImg.src = image.src;
+      imageModalImg.alt = `Image du produit ${image.title || "EHE"}`;
+      if (imageModalTitle) imageModalTitle.textContent = image.title || "Produit EHE";
+    });
+    imageModalSimilar.appendChild(button);
+  });
+}
+
+function openImageModal(src, title, images = []) {
   if (!src || !imageModal || !imageModalImg) return;
   imageModalImg.src = src;
   imageModalImg.alt = title ? `Image du produit ${title}` : "Image du produit";
   if (imageModalTitle) imageModalTitle.textContent = title || "Produit EHE";
+  renderSimilarImages(images);
   imageModal.classList.add("open");
   imageModal.setAttribute("aria-hidden", "false");
   document.body.classList.add("modal-open");
@@ -38,6 +61,33 @@ function closeImageModal() {
   imageModal.setAttribute("aria-hidden", "true");
   document.body.classList.remove("modal-open");
   imageModalImg.src = "";
+  if (imageModalSimilar) imageModalSimilar.innerHTML = "";
+}
+
+async function loadSimilarProducts(currentProduct) {
+  try {
+    const response = await fetch("./api/products.php");
+    const result = await response.json();
+    if (!response.ok || !result.success) return [];
+
+    const currentImage = currentProduct.image || "assets/hero-ehe.png";
+    const seen = new Set();
+    return (result.products || [])
+      .filter((product) => String(product.id) !== String(currentProduct.id))
+      .map((product) => ({
+        src: product.image || "assets/hero-ehe.png",
+        title: product.name || "Produit EHE"
+      }))
+      .filter((item) => item.src && item.src !== currentImage)
+      .filter((item) => {
+        if (seen.has(item.src)) return false;
+        seen.add(item.src);
+        return true;
+      })
+      .slice(0, 6);
+  } catch {
+    return [];
+  }
 }
 
 function buildWhatsAppLink(product, size, color, quantity, customer) {
@@ -103,6 +153,7 @@ async function loadProduct() {
   const sizes = (product.sizes || "39,40,41,42,43,44").split(",").map((item) => item.trim()).filter(Boolean);
   const colors = (product.colors || "Noir,Marron").split(",").map((item) => item.trim()).filter(Boolean);
   const canOrder = product.availability_status !== "out_of_stock" && (Number(product.stock || 0) > 0 || product.availability_status === "made_to_order");
+  similarProducts = await loadSimilarProducts(product);
 
   document.title = `${product.name} | EHE`;
   root.innerHTML = `
@@ -135,12 +186,12 @@ async function loadProduct() {
 
   const detailImage = root.querySelector("[data-detail-image]");
   detailImage?.addEventListener("click", () => {
-    openImageModal(detailImage.getAttribute("src"), product.name);
+    openImageModal(detailImage.getAttribute("src"), product.name, similarProducts);
   });
   detailImage?.addEventListener("keydown", (event) => {
     if (event.key !== "Enter" && event.key !== " ") return;
     event.preventDefault();
-    openImageModal(detailImage.getAttribute("src"), product.name);
+    openImageModal(detailImage.getAttribute("src"), product.name, similarProducts);
   });
 
   root.querySelector("[data-order]")?.addEventListener("click", async (event) => {

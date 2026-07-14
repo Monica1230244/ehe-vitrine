@@ -18,6 +18,7 @@ const imageModal = document.querySelector("[data-image-modal]");
 const imageModalImg = document.querySelector("[data-image-modal-img]");
 const imageModalTitle = document.querySelector("[data-image-modal-title]");
 const imageModalClose = document.querySelector("[data-image-modal-close]");
+const imageModalSimilar = document.querySelector("[data-image-modal-similar]");
 const cart = [];
 const whatsappNumber = "22945556311";
 let allProducts = [];
@@ -81,11 +82,52 @@ const availabilityLabel = (value) => ({
   out_of_stock: "Indisponible"
 }[value] || "Disponible");
 
-const openImageModal = (src, title) => {
+const getSimilarImages = (currentSrc = "") => {
+  const fallback = [
+    { src: "./assets/hero-ehe.png", title: "Collection EHE" },
+    { src: "./assets/hero-product-1.png", title: "Modele EHE" }
+  ];
+  const products = allProducts.map((product) => ({
+    src: product.image || "assets/hero-ehe.png",
+    title: product.name || "Produit EHE"
+  }));
+  const seen = new Set();
+  return [...products, ...fallback]
+    .filter((item) => item.src && item.src !== currentSrc)
+    .filter((item) => {
+      if (seen.has(item.src)) return false;
+      seen.add(item.src);
+      return true;
+    })
+    .slice(0, 6);
+};
+
+const renderSimilarImages = (images = []) => {
+  if (!imageModalSimilar) return;
+  imageModalSimilar.innerHTML = "";
+  if (!images.length) return;
+
+  images.forEach((image) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "image-modal-thumb";
+    button.setAttribute("aria-label", `Voir ${image.title || "ce produit"} en grand`);
+    button.innerHTML = `<img src="${escapeHtml(image.src)}" alt="${escapeHtml(image.title || "Produit EHE")}">`;
+    button.addEventListener("click", () => {
+      imageModalImg.src = image.src;
+      imageModalImg.alt = `Image du produit ${image.title || "EHE"}`;
+      if (imageModalTitle) imageModalTitle.textContent = image.title || "Produit EHE";
+    });
+    imageModalSimilar.appendChild(button);
+  });
+};
+
+const openImageModal = (src, title, similarImages = null) => {
   if (!src || !imageModal || !imageModalImg) return;
   imageModalImg.src = src;
   imageModalImg.alt = title ? `Image du produit ${title}` : "Image du produit";
   if (imageModalTitle) imageModalTitle.textContent = title || "Produit EHE";
+  renderSimilarImages(similarImages || getSimilarImages(src));
   imageModal.classList.add("open");
   imageModal.setAttribute("aria-hidden", "false");
   document.body.classList.add("modal-open");
@@ -97,6 +139,7 @@ const closeImageModal = () => {
   imageModal.setAttribute("aria-hidden", "true");
   document.body.classList.remove("modal-open");
   imageModalImg.src = "";
+  if (imageModalSimilar) imageModalSimilar.innerHTML = "";
 };
 
 const getCustomerInfo = () => {
